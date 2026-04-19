@@ -1,8 +1,8 @@
-import { Link, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
+import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { LayoutDashboard, Map, Trash2, Gamepad2, Bell, Settings, LogOut } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 
 const tabs = [
   { to: "/", icon: LayoutDashboard, label: "Home" },
@@ -12,7 +12,7 @@ const tabs = [
   { to: "/alerts", icon: Bell, label: "Alerts" },
 ] as const;
 
-export function AppLayout() {
+export function AppLayout({ children }: { children: ReactNode }) {
   const { user, loading, signOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -54,7 +54,7 @@ export function AppLayout() {
       </header>
 
       <main className="flex-1 pb-20">
-        <Outlet />
+        {children}
       </main>
 
       <nav className="fixed bottom-0 left-0 right-0 z-30 border-t border-border bg-card/95 backdrop-blur">
