@@ -42,7 +42,7 @@ export async function logEvent(type: string, message: string, bin_id?: string | 
 
 export async function queueCommand(
   type: "F" | "B" | "S" | "DUMP" | "GOTO" | "RETURN",
-  payload?: Record<string, any>,
+  payload?: Record<string, any> | null,
   priority = 0,
 ) {
   const { data: u } = await supabase.auth.getUser();
