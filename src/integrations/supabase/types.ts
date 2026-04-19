@@ -14,16 +14,252 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bins: {
+        Row: {
+          created_at: string
+          fill_percent: number
+          id: string
+          label: string
+          last_seen: string | null
+          lat: number
+          lng: number
+          status: Database["public"]["Enums"]["bin_status"]
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          fill_percent?: number
+          id: string
+          label: string
+          last_seen?: string | null
+          lat: number
+          lng: number
+          status?: Database["public"]["Enums"]["bin_status"]
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          fill_percent?: number
+          id?: string
+          label?: string
+          last_seen?: string | null
+          lat?: number
+          lng?: number
+          status?: Database["public"]["Enums"]["bin_status"]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      commands: {
+        Row: {
+          acked_at: string | null
+          created_at: string
+          id: string
+          issued_by: string | null
+          payload: Json | null
+          priority: number
+          sent_at: string | null
+          status: Database["public"]["Enums"]["command_status"]
+          type: Database["public"]["Enums"]["command_type"]
+        }
+        Insert: {
+          acked_at?: string | null
+          created_at?: string
+          id?: string
+          issued_by?: string | null
+          payload?: Json | null
+          priority?: number
+          sent_at?: string | null
+          status?: Database["public"]["Enums"]["command_status"]
+          type: Database["public"]["Enums"]["command_type"]
+        }
+        Update: {
+          acked_at?: string | null
+          created_at?: string
+          id?: string
+          issued_by?: string | null
+          payload?: Json | null
+          priority?: number
+          sent_at?: string | null
+          status?: Database["public"]["Enums"]["command_status"]
+          type?: Database["public"]["Enums"]["command_type"]
+        }
+        Relationships: []
+      }
+      device_tokens: {
+        Row: {
+          created_at: string
+          id: string
+          last_used_at: string | null
+          name: string
+          token: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          last_used_at?: string | null
+          name: string
+          token: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          last_used_at?: string | null
+          name?: string
+          token?: string
+        }
+        Relationships: []
+      }
+      events: {
+        Row: {
+          bin_id: string | null
+          created_at: string
+          id: string
+          message: string
+          metadata: Json | null
+          type: string
+        }
+        Insert: {
+          bin_id?: string | null
+          created_at?: string
+          id?: string
+          message: string
+          metadata?: Json | null
+          type: string
+        }
+        Update: {
+          bin_id?: string | null
+          created_at?: string
+          id?: string
+          message?: string
+          metadata?: Json | null
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "events_bin_id_fkey"
+            columns: ["bin_id"]
+            isOneToOne: false
+            referencedRelation: "bins"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          email: string | null
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          email?: string | null
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          email?: string | null
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      truck_state: {
+        Row: {
+          fill_percent: number
+          heading: number | null
+          id: number
+          last_seen: string | null
+          lat: number | null
+          lng: number | null
+          mode: Database["public"]["Enums"]["truck_mode"]
+          state: Database["public"]["Enums"]["truck_run_state"]
+          target_bin_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          fill_percent?: number
+          heading?: number | null
+          id?: number
+          last_seen?: string | null
+          lat?: number | null
+          lng?: number | null
+          mode?: Database["public"]["Enums"]["truck_mode"]
+          state?: Database["public"]["Enums"]["truck_run_state"]
+          target_bin_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          fill_percent?: number
+          heading?: number | null
+          id?: number
+          last_seen?: string | null
+          lat?: number | null
+          lng?: number | null
+          mode?: Database["public"]["Enums"]["truck_mode"]
+          state?: Database["public"]["Enums"]["truck_run_state"]
+          target_bin_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "truck_state_target_bin_id_fkey"
+            columns: ["target_bin_id"]
+            isOneToOne: false
+            referencedRelation: "bins"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "operator" | "admin"
+      bin_status: "ok" | "nearly_full" | "full" | "emptied"
+      command_status: "pending" | "sent" | "done" | "failed"
+      command_type: "F" | "B" | "S" | "DUMP" | "GOTO" | "RETURN"
+      truck_mode: "auto" | "manual"
+      truck_run_state: "idle" | "moving" | "dumping" | "returning" | "full"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +386,13 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["operator", "admin"],
+      bin_status: ["ok", "nearly_full", "full", "emptied"],
+      command_status: ["pending", "sent", "done", "failed"],
+      command_type: ["F", "B", "S", "DUMP", "GOTO", "RETURN"],
+      truck_mode: ["auto", "manual"],
+      truck_run_state: ["idle", "moving", "dumping", "returning", "full"],
+    },
   },
 } as const
