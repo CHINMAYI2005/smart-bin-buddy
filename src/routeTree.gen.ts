@@ -16,6 +16,10 @@ import { Route as ControlRouteImport } from './routes/control'
 import { Route as BinsRouteImport } from './routes/bins'
 import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiTruckTelemetryRouteImport } from './routes/api.truck.telemetry'
+import { Route as ApiTruckCommandsRouteImport } from './routes/api.truck.commands'
+import { Route as ApiTruckAckRouteImport } from './routes/api.truck.ack'
+import { Route as ApiBinStatusRouteImport } from './routes/api.bin.status'
 
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
@@ -52,6 +56,26 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiTruckTelemetryRoute = ApiTruckTelemetryRouteImport.update({
+  id: '/api/truck/telemetry',
+  path: '/api/truck/telemetry',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTruckCommandsRoute = ApiTruckCommandsRouteImport.update({
+  id: '/api/truck/commands',
+  path: '/api/truck/commands',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTruckAckRoute = ApiTruckAckRouteImport.update({
+  id: '/api/truck/ack',
+  path: '/api/truck/ack',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiBinStatusRoute = ApiBinStatusRouteImport.update({
+  id: '/api/bin/status',
+  path: '/api/bin/status',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -61,6 +85,10 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/settings': typeof SettingsRoute
+  '/api/bin/status': typeof ApiBinStatusRoute
+  '/api/truck/ack': typeof ApiTruckAckRoute
+  '/api/truck/commands': typeof ApiTruckCommandsRoute
+  '/api/truck/telemetry': typeof ApiTruckTelemetryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +98,10 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/settings': typeof SettingsRoute
+  '/api/bin/status': typeof ApiBinStatusRoute
+  '/api/truck/ack': typeof ApiTruckAckRoute
+  '/api/truck/commands': typeof ApiTruckCommandsRoute
+  '/api/truck/telemetry': typeof ApiTruckTelemetryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +112,10 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/map': typeof MapRoute
   '/settings': typeof SettingsRoute
+  '/api/bin/status': typeof ApiBinStatusRoute
+  '/api/truck/ack': typeof ApiTruckAckRoute
+  '/api/truck/commands': typeof ApiTruckCommandsRoute
+  '/api/truck/telemetry': typeof ApiTruckTelemetryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,8 +127,23 @@ export interface FileRouteTypes {
     | '/login'
     | '/map'
     | '/settings'
+    | '/api/bin/status'
+    | '/api/truck/ack'
+    | '/api/truck/commands'
+    | '/api/truck/telemetry'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/alerts' | '/bins' | '/control' | '/login' | '/map' | '/settings'
+  to:
+    | '/'
+    | '/alerts'
+    | '/bins'
+    | '/control'
+    | '/login'
+    | '/map'
+    | '/settings'
+    | '/api/bin/status'
+    | '/api/truck/ack'
+    | '/api/truck/commands'
+    | '/api/truck/telemetry'
   id:
     | '__root__'
     | '/'
@@ -102,6 +153,10 @@ export interface FileRouteTypes {
     | '/login'
     | '/map'
     | '/settings'
+    | '/api/bin/status'
+    | '/api/truck/ack'
+    | '/api/truck/commands'
+    | '/api/truck/telemetry'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -112,6 +167,10 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   MapRoute: typeof MapRoute
   SettingsRoute: typeof SettingsRoute
+  ApiBinStatusRoute: typeof ApiBinStatusRoute
+  ApiTruckAckRoute: typeof ApiTruckAckRoute
+  ApiTruckCommandsRoute: typeof ApiTruckCommandsRoute
+  ApiTruckTelemetryRoute: typeof ApiTruckTelemetryRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -165,6 +224,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/truck/telemetry': {
+      id: '/api/truck/telemetry'
+      path: '/api/truck/telemetry'
+      fullPath: '/api/truck/telemetry'
+      preLoaderRoute: typeof ApiTruckTelemetryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/truck/commands': {
+      id: '/api/truck/commands'
+      path: '/api/truck/commands'
+      fullPath: '/api/truck/commands'
+      preLoaderRoute: typeof ApiTruckCommandsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/truck/ack': {
+      id: '/api/truck/ack'
+      path: '/api/truck/ack'
+      fullPath: '/api/truck/ack'
+      preLoaderRoute: typeof ApiTruckAckRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/bin/status': {
+      id: '/api/bin/status'
+      path: '/api/bin/status'
+      fullPath: '/api/bin/status'
+      preLoaderRoute: typeof ApiBinStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -176,7 +263,20 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   MapRoute: MapRoute,
   SettingsRoute: SettingsRoute,
+  ApiBinStatusRoute: ApiBinStatusRoute,
+  ApiTruckAckRoute: ApiTruckAckRoute,
+  ApiTruckCommandsRoute: ApiTruckCommandsRoute,
+  ApiTruckTelemetryRoute: ApiTruckTelemetryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
