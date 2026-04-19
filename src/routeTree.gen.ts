@@ -9,38 +9,214 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as MapRouteImport } from './routes/map'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as ControlRouteImport } from './routes/control'
+import { Route as BinsRouteImport } from './routes/bins'
+import { Route as AlertsRouteImport } from './routes/alerts'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiTruckTelemetryRouteImport } from './routes/api.truck.telemetry'
+import { Route as ApiTruckCommandsRouteImport } from './routes/api.truck.commands'
+import { Route as ApiTruckAckRouteImport } from './routes/api.truck.ack'
+import { Route as ApiBinStatusRouteImport } from './routes/api.bin.status'
 
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MapRoute = MapRouteImport.update({
+  id: '/map',
+  path: '/map',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ControlRoute = ControlRouteImport.update({
+  id: '/control',
+  path: '/control',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BinsRoute = BinsRouteImport.update({
+  id: '/bins',
+  path: '/bins',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AlertsRoute = AlertsRouteImport.update({
+  id: '/alerts',
+  path: '/alerts',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiTruckTelemetryRoute = ApiTruckTelemetryRouteImport.update({
+  id: '/api/truck/telemetry',
+  path: '/api/truck/telemetry',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTruckCommandsRoute = ApiTruckCommandsRouteImport.update({
+  id: '/api/truck/commands',
+  path: '/api/truck/commands',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTruckAckRoute = ApiTruckAckRouteImport.update({
+  id: '/api/truck/ack',
+  path: '/api/truck/ack',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiBinStatusRoute = ApiBinStatusRouteImport.update({
+  id: '/api/bin/status',
+  path: '/api/bin/status',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/bins': typeof BinsRoute
+  '/control': typeof ControlRoute
+  '/login': typeof LoginRoute
+  '/map': typeof MapRoute
+  '/settings': typeof SettingsRoute
+  '/api/bin/status': typeof ApiBinStatusRoute
+  '/api/truck/ack': typeof ApiTruckAckRoute
+  '/api/truck/commands': typeof ApiTruckCommandsRoute
+  '/api/truck/telemetry': typeof ApiTruckTelemetryRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/bins': typeof BinsRoute
+  '/control': typeof ControlRoute
+  '/login': typeof LoginRoute
+  '/map': typeof MapRoute
+  '/settings': typeof SettingsRoute
+  '/api/bin/status': typeof ApiBinStatusRoute
+  '/api/truck/ack': typeof ApiTruckAckRoute
+  '/api/truck/commands': typeof ApiTruckCommandsRoute
+  '/api/truck/telemetry': typeof ApiTruckTelemetryRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/alerts': typeof AlertsRoute
+  '/bins': typeof BinsRoute
+  '/control': typeof ControlRoute
+  '/login': typeof LoginRoute
+  '/map': typeof MapRoute
+  '/settings': typeof SettingsRoute
+  '/api/bin/status': typeof ApiBinStatusRoute
+  '/api/truck/ack': typeof ApiTruckAckRoute
+  '/api/truck/commands': typeof ApiTruckCommandsRoute
+  '/api/truck/telemetry': typeof ApiTruckTelemetryRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/alerts'
+    | '/bins'
+    | '/control'
+    | '/login'
+    | '/map'
+    | '/settings'
+    | '/api/bin/status'
+    | '/api/truck/ack'
+    | '/api/truck/commands'
+    | '/api/truck/telemetry'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/alerts'
+    | '/bins'
+    | '/control'
+    | '/login'
+    | '/map'
+    | '/settings'
+    | '/api/bin/status'
+    | '/api/truck/ack'
+    | '/api/truck/commands'
+    | '/api/truck/telemetry'
+  id:
+    | '__root__'
+    | '/'
+    | '/alerts'
+    | '/bins'
+    | '/control'
+    | '/login'
+    | '/map'
+    | '/settings'
+    | '/api/bin/status'
+    | '/api/truck/ack'
+    | '/api/truck/commands'
+    | '/api/truck/telemetry'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AlertsRoute: typeof AlertsRoute
+  BinsRoute: typeof BinsRoute
+  ControlRoute: typeof ControlRoute
+  LoginRoute: typeof LoginRoute
+  MapRoute: typeof MapRoute
+  SettingsRoute: typeof SettingsRoute
+  ApiBinStatusRoute: typeof ApiBinStatusRoute
+  ApiTruckAckRoute: typeof ApiTruckAckRoute
+  ApiTruckCommandsRoute: typeof ApiTruckCommandsRoute
+  ApiTruckTelemetryRoute: typeof ApiTruckTelemetryRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/map': {
+      id: '/map'
+      path: '/map'
+      fullPath: '/map'
+      preLoaderRoute: typeof MapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/control': {
+      id: '/control'
+      path: '/control'
+      fullPath: '/control'
+      preLoaderRoute: typeof ControlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bins': {
+      id: '/bins'
+      path: '/bins'
+      fullPath: '/bins'
+      preLoaderRoute: typeof BinsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/alerts': {
+      id: '/alerts'
+      path: '/alerts'
+      fullPath: '/alerts'
+      preLoaderRoute: typeof AlertsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,21 +224,50 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/truck/telemetry': {
+      id: '/api/truck/telemetry'
+      path: '/api/truck/telemetry'
+      fullPath: '/api/truck/telemetry'
+      preLoaderRoute: typeof ApiTruckTelemetryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/truck/commands': {
+      id: '/api/truck/commands'
+      path: '/api/truck/commands'
+      fullPath: '/api/truck/commands'
+      preLoaderRoute: typeof ApiTruckCommandsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/truck/ack': {
+      id: '/api/truck/ack'
+      path: '/api/truck/ack'
+      fullPath: '/api/truck/ack'
+      preLoaderRoute: typeof ApiTruckAckRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/bin/status': {
+      id: '/api/bin/status'
+      path: '/api/bin/status'
+      fullPath: '/api/bin/status'
+      preLoaderRoute: typeof ApiBinStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AlertsRoute: AlertsRoute,
+  BinsRoute: BinsRoute,
+  ControlRoute: ControlRoute,
+  LoginRoute: LoginRoute,
+  MapRoute: MapRoute,
+  SettingsRoute: SettingsRoute,
+  ApiBinStatusRoute: ApiBinStatusRoute,
+  ApiTruckAckRoute: ApiTruckAckRoute,
+  ApiTruckCommandsRoute: ApiTruckCommandsRoute,
+  ApiTruckTelemetryRoute: ApiTruckTelemetryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
